@@ -16,6 +16,9 @@ export class AuthService {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(user.password, salt);
     user.password = hash;
+    user.firstName = user.firstName;
+    user.lastName = user.lastName;
+    user.role = 'user';
     return await this.userRepository.save(user);
   }
 
@@ -38,6 +41,14 @@ export class AuthService {
 
     return {
       access_token: this.jwt.sign(payload),
+      role: user.role,
+      username: user.username,
     };
+  }
+
+  async findOne(username: string): Promise<Users | undefined> {
+    return await this.userRepository.findOne({
+      where: { username },
+    });
   }
 }

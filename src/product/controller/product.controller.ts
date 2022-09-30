@@ -18,19 +18,18 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async GetAll(): Promise<ProductEntity[]> {
     return await this.productsService.getAll();
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Post()
   async Create(
     @Request() req,
     @Body() product: ProductEntity,
   ): Promise<ProductEntity> {
-    return await this.productsService.create(product, req.user);
+    return await this.productsService.create(product);
   }
 
   @UseGuards(JwtAuthGuard)

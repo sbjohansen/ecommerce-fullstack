@@ -21,13 +21,28 @@ export class ProductEntity {
   price: number;
 
   @Column()
-  quantity: string;
+  quantity: number;
+
+  @Column({ type: 'simple-array' })
+  size: string[];
+
+  @Column({ type: 'simple-array' })
+  type: string[];
+
+  @Column()
+  description: string;
+
+  @Column({ type: 'simple-array' })
+  images: string[];
+
+  @Column()
+  category: string;
 
   @CreateDateColumn()
   createdAt: string;
 
   @UpdateDateColumn()
-  updtedAt: string;
+  updatedAt: string;
 
   @OneToMany((type) => CartEntity, (cart) => cart.id)
   @JoinColumn()

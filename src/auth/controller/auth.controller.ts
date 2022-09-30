@@ -2,13 +2,21 @@ import { Controller, Request, Post, UseGuards, Body } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../service/auth.service';
 import { Users } from '../user.entity';
-
+import { HttpException, HttpStatus } from '@nestjs/common';
 @Controller('api/v1/auth/')
 export class AuthController {
   constructor(private usersService: AuthService) {}
 
   @Post('signup')
   async signup(@Body() user: Users): Promise<Users> {
+    const checkUsername = await this.usersService.findOne(user.username);
+
+    if (checkUsername) {
+      throw new HttpException(
+        'Username already exists',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     return this.usersService.signup(user);
   }
 

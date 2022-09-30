@@ -1,10 +1,10 @@
 export = {
   type: 'mysql',
-  host: 'localhost',
+  host: '212.107.17.103',
   port: 3306,
-  username: 'root',
-  password: 'password',
-  database: 'shoppingdb',
+  username: 'u861488330_root',
+  password: 'Password12',
+  database: 'u861488330_shoppingDB',
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
-  synchronize: true,
+  synchronize: false,
 };

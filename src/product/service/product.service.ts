@@ -15,11 +15,8 @@ export class ProductsService {
     return await this.productRepository.find();
   }
 
-  async create(product: ProductEntity, user: Users): Promise<ProductEntity> {
-    if (user.role == 'admin') {
-      return await this.productRepository.save(product);
-    }
-    throw new UnauthorizedException();
+  async create(product: ProductEntity): Promise<ProductEntity> {
+    return await this.productRepository.save(product);
   }
 
   async getOne(id: number): Promise<ProductEntity> {

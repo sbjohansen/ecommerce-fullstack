@@ -7,7 +7,7 @@ import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
-
+import { CategoryModule } from './categories/category.module';
 import config = require('./ormconfig');
 
 @Module({
@@ -17,6 +17,7 @@ import config = require('./ormconfig');
     ProductModule,
     CartModule,
     OrderModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
