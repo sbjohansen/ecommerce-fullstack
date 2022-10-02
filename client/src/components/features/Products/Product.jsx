@@ -8,7 +8,11 @@ const Product = ({ item }) => {
 
   const handleAddToCart = () => {
     dispatch(
-      addToCartRequest({ id: item.id, quantity: 1, username: sessionStorage.getItem('username') }),
+      addToCartRequest({
+        productId: item.id,
+        quantity: 1,
+        username: sessionStorage.getItem('username'),
+      }),
     );
   };
 
@@ -39,15 +43,7 @@ const Product = ({ item }) => {
       >
         {/*icons*/}
         <div className={iconsStyle}>
-          <ShoppingCartOutlined
-            onClick={(e) =>
-              handleAddToCart({
-                id: item.id,
-                quantity: 1,
-                username: sessionStorage.getItem('username'),
-              })
-            }
-          />
+          <ShoppingCartOutlined onClick={handleAddToCart} />
         </div>
         <div className={iconsStyle}>
           <FavoriteBorderOutlined />

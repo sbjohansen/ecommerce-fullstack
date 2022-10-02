@@ -27,8 +27,9 @@ export class OrderService {
       .map((item) => item.total)
       .reduce((acc, next) => acc + next);
     //get the authenticated user
-    const authUser = await this.userRepository.findOneBy({ username: user });
-
+    const authUser = await this.userRepository.findOne({
+      where: { username: user },
+    });
     //if users has an pending order - add item to the list of order
     const cart = await cartItems.map((item) => item.item);
 

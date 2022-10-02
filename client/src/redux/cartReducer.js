@@ -30,9 +30,9 @@ export const errorRequest = (error) => ({ error, type: ERROR_REQUEST });
 //THUNKS
 
 export const addToCartRequest = (cart) => {
-  const { id, quantity, username } = cart;
+  const { productId, quantity, username } = cart;
   console.log(cart);
-  const cartItem = { id, quantity, username };
+  const cartItem = { productId, quantity, username };
 
   return async (dispatch) => {
     dispatch(startRequest());

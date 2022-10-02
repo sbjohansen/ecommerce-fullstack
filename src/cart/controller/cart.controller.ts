@@ -15,15 +15,16 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 export class CartController {
   constructor(private cartService: CartService) {}
 
+  //@UseGuards(JwtAuthGuard)
   @Post()
   async AddToCart(@Body() body, @Request() req): Promise<void> {
-    const { productId, quantity, username } = body;
-    return await this.cartService.addToCart(productId, quantity, username);
+    const { productId, quantity } = body;
+    return await this.cartService.addToCart(productId, quantity, req.username);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  async getItemsInCart(@Body() body, @Request() req): Promise<CartEntity[]> {
-    const { username } = body;
-    return await this.cartService.getItemsInCart(username);
+  async getItemsInCart(@Request() req): Promise<CartEntity[]> {
+    return await this.cartService.getItemsInCart(req.username);
   }
 }
