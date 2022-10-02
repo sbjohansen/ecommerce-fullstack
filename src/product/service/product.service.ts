@@ -19,12 +19,13 @@ export class ProductsService {
     return await this.productRepository.save(product);
   }
 
-  async getOne(id: number): Promise<ProductEntity> {
-    return this.productRepository.findOne({ where: { id } });
+  async getProductById(id: string): Promise<ProductEntity> {
+    console.log(id);
+    return await this.productRepository.findOneBy({ id });
   }
 
   async update(
-    id: number,
+    id: string,
     product: ProductEntity,
     user: Users,
   ): Promise<UpdateResult> {
@@ -34,7 +35,7 @@ export class ProductsService {
     throw new UnauthorizedException();
   }
 
-  async delete(id: number, user: Users): Promise<DeleteResult> {
+  async delete(id: string, user: Users): Promise<DeleteResult> {
     if (user.role == 'admin') {
       return await this.productRepository.delete(id);
     }

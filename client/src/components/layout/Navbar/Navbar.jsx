@@ -39,22 +39,33 @@ const Navbar = () => {
           {/*  Logo */}
           <div className="center flex-1 text-center ">
             <Link className="logo flex items-center justify-center" to="/">
-              <img src={image} alt="logo" className="w-[100px] mobile:w-[50px]" />
+              <img src={image} alt="logo" className="w-[100px] mobile:w-[100px]" />
             </Link>
           </div>
           {/*  Right side of navbar */}
           <div className="right flex flex-1 items-center justify-end mobile:flex-[1.5] mobile:justify-center">
-            <Link to="/register" className={style}>
-              Register
-            </Link>
-            <Link to="/login" className={style}>
-              Sign in
-            </Link>
-            <Link className={style} to="/cart">
-              <Badge badgeContent={2} color="primary">
-                <ShoppingCartOutlined as={Link} to="/cart" />
-              </Badge>
-            </Link>
+            {sessionStorage && sessionStorage.getItem('username') ? (
+              <div>
+                Logged in:<b> {sessionStorage.getItem('username')}</b>
+                <Link to="/Logout" className={style}>
+                  Logout
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <Link to="/register" className={style}>
+                  Register
+                </Link>
+                <Link to="/login" className={style}>
+                  Sign in
+                </Link>
+                <Link className={style} to="/cart">
+                  <Badge badgeContent={2} color="primary">
+                    <ShoppingCartOutlined as={Link} to="/cart" />
+                  </Badge>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

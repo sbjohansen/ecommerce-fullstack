@@ -17,7 +17,7 @@ const Footer = () => {
 
       <div className="flex items-center justify-around p-2 mobile:flex-col text-white">
         <div className="flex-1 flex flex-col flex-wrap p-2 mobile:text-center">
-          <h1 className="text-[25px] mobile:self-center"> Vano Spice Shop</h1>
+          <h1 className="text-[25px] mobile:self-center"> UB Art</h1>
           <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
           <div className="flex items-center justify-center mt-3 self-start mobile:self-center">
             <div className={socialIcons + `bg-blue-600`}>

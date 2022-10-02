@@ -22,14 +22,13 @@ export class OrderService {
       (order) => order.user?.username === user && order.pending === false,
     );
     //find user's cart items
-    const cartItems = await this.cartService.getItemsInCard(user);
+    const cartItems = await this.cartService.getItemsInCart(user);
     const subTotal = cartItems
       .map((item) => item.total)
       .reduce((acc, next) => acc + next);
     //get the authenticated user
-    const authUser = await this.userRepository.findOne({
-      where: { username: user },
-    });
+    const authUser = await this.userRepository.findOneBy({ username: user });
+
     //if users has an pending order - add item to the list of order
     const cart = await cartItems.map((item) => item.item);
 

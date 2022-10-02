@@ -16,52 +16,37 @@ export class CartService {
   ) {}
 
   async addToCart(
-    productId: number,
+    productId: string,
     quantity: number,
-    user: string,
-  ): Promise<any> {
-    const cartItems = await this.cartRepository.find({
+    username: string,
+  ): Promise<void> {
+    const product = await this.productsService.getProductById(productId);
+    const user = await this.userRepository.findOne({ where: { username } });
+    const cartItem = await this.cartRepository.find({
       relations: ['item', 'user'],
     });
-    const product = await this.productsService.getOne(productId);
-    const authUser = await this.userRepository.findOne({
-      where: { username: user },
-    });
 
-    //Confirm the product exists.
-    if (product) {
-      //confirm if user has item in cart
-      const cart = cartItems.filter(
-        (item) => item.item.id === productId && item.user.username === user,
+    if (cartItem) {
+      const item = cartItem.find(
+        (item) => item.item.id === product.id && item.user.id === user.id,
       );
-      if (cart.length < 1) {
-        const newItem = this.cartRepository.create({
-          total: product.price * quantity,
-          quantity,
-        });
-        newItem.user = authUser;
-        newItem.item = product;
-        this.cartRepository.save(newItem);
-
-        return await this.cartRepository.save(newItem);
+      if (item) {
+        item.quantity += quantity;
+        await this.cartRepository.save(item);
       } else {
-        //Update the item quantity
-        const quantity = (cart[0].quantity += 1);
-        const total = cart[0].total * quantity;
-
-        return await this.cartRepository.update(cart[0].id, {
-          quantity,
-          total,
-        });
+        const newCartItem = new CartEntity();
+        newCartItem.item = product;
+        newCartItem.user = user;
+        newCartItem.quantity = quantity;
+        await this.cartRepository.save(newCartItem);
       }
     }
-    return null;
   }
 
-  async getItemsInCard(user: string): Promise<CartEntity[]> {
+  async getItemsInCart(username: string): Promise<CartEntity[]> {
     const userCart = await this.cartRepository.find({
       relations: ['item', 'user'],
     });
-    return (await userCart).filter((item) => item.user.username === user);
+    return (await userCart).filter((item) => item.user.username === username);
   }
 }

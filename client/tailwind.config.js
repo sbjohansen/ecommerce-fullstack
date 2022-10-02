@@ -19,7 +19,12 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        bannerOne: "url('https://sbjohansen.com/images/promo/banner_1.png')",
+        bannerTwo: "url('https://sbjohansen.com/images/promo/banner_2.png')",
+      },
+    },
   },
   plugins: [],
 };

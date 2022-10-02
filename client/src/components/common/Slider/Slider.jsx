@@ -5,6 +5,27 @@ import './Slider.scss';
 
 const Slider = () => {
   //useState hooks
+
+  const promoSlides = [
+    {
+      src: 'https://sbjohansen.com/images/promo/banner_1.png',
+      content: {
+        h2: 'Check out our new Abstract collection',
+        p: 'Only available for a limited time',
+      },
+      background: ' bg-bannerOne  bg-cover bg-no-repeat bg-center',
+    },
+    {
+      src: 'https://sbjohansen.com/images/promo/banner_1.png',
+      active: true,
+      content: {
+        h2: 'Limited offer psychadelic collection',
+        p: 'Only available for a limited time',
+      },
+      background: 'bg-bannerTwo  bg-cover bg-no-repeat bg-center',
+    },
+  ];
+
   const [slides] = useState(ApiSlides);
   const [current, setCurrent] = useState(0);
 
@@ -37,22 +58,20 @@ const Slider = () => {
         <ArrowLeftOutlined style={{ fontSize: '50px' }} onClick={prevSlide} />
       </div>
       {/* slide div */}
-      {slides.map((slide, index) => {
+      {promoSlides.map((slide, index) => {
         if (index === current) {
           return (
             <div
               className={
-                'wrapper flex w-[100%] h-[500px] justify-center items-center shadow-xl rounded-lg border-[#c0c0c0] border-10px overflow-hidden relative ' +
+                'wrapper flex w-[100%] h-[400px] justify-center items-center shadow-xl rounded-lg border-[#c0c0c0] border-10px overflow-hidden relative  ' +
                 slide.background
               }
             >
               <div className="slide flex items-center justify-center h-[100%]">
-                <div className="forImage flex flex-1 justify-center items-center h-[100%]">
-                  <img className="h-[100%] object-cover" src={slide.src} alt="spices" />
-                </div>
-                <div className="des flex flex-col flex-1 place-items-start justify-center ml-11">
-                  <h2 className="text-[55px]">{slide.content.h2}</h2>
-                  <p className="text-[30px]">{slide.content.p}</p>
+                <div className="forImage flex flex-[0.4] justify-center items-center h-[100%] "></div>
+                <div className="des flex flex-col flex-1 place-items-start justify-center ml-4">
+                  <h2 className="text-[40px] mobile:text-[25px] ">{slide.content.h2}</h2>
+                  <p className="text-[30px] mobile:text-[15px]">{slide.content.p}</p>
                   <button className="btn">Shop Now!</button>
                 </div>
               </div>

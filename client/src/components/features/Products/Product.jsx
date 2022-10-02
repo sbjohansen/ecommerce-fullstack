@@ -1,10 +1,11 @@
 import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from '@material-ui/icons';
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 const Product = ({ item }) => {
   const [hoverEffect, setHoverEffect] = useState('opacity-0');
-
+  const navigate = useNavigate();
   const iconsStyle =
-    'h-[40px] w-[40px] rounded-full bg-white flex items-center justify-center m-3 cursor-pointer hover:bg-[#894af3] hover:text-white hover:scale-[1.1] ease-in duration-100 cursor-pointer';
+    'h-[40px] w-[40px] rounded-full text-white flex items-center justify-center m-3 bg-[#ec633e] cursor-pointer hover:bg-white hover:text-[#ec633e] hover:scale-[1.1] ease-in duration-100 cursor-pointer';
 
   const handleHoverEnter = () => {
     setHoverEffect(' opacity-1 bg-[rgba(0,0,0,0.2)] ');
@@ -34,8 +35,10 @@ const Product = ({ item }) => {
         <div className={iconsStyle}>
           <FavoriteBorderOutlined />
         </div>
-        <div className={iconsStyle}>
-          <SearchOutlined />
+        <div className={iconsStyle} product={item} href={'/product/' + item.id}>
+          <a href={'/product/' + item.id}>
+            <SearchOutlined />
+          </a>
         </div>
       </div>
     </div>

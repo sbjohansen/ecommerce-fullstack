@@ -32,16 +32,15 @@ export class ProductsController {
     return await this.productsService.create(product);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async GetOne(@Param() id: number): Promise<ProductEntity> {
-    return await this.productsService.getOne(id);
+  async getProductById(@Param('id') id: string): Promise<ProductEntity> {
+    return await this.productsService.getProductById(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   async Update(
-    @Param() id: number,
+    @Param() id: string,
     @Body() product: ProductEntity,
     @Request() req,
   ): Promise<UpdateResult> {
@@ -50,7 +49,7 @@ export class ProductsController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async Delete(@Param() id: number, @Request() req): Promise<DeleteResult> {
+  async Delete(@Param() id: string, @Request() req): Promise<DeleteResult> {
     return await this.productsService.delete(id, req.user);
   }
 }
