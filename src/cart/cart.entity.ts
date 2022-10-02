@@ -13,7 +13,7 @@ import { Users } from '../auth/user.entity';
 @Entity()
 export class CartEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   total: number;

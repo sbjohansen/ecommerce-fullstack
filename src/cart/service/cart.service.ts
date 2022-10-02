@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CartEntity } from '../cart.entity';
@@ -24,10 +24,7 @@ export class CartService {
       relations: ['item', 'user'],
     });
     const product = await this.productsService.getProductById(productId);
-    const authUser = await this.userRepository.findOne({
-      where: { username: user },
-    });
-
+    const authUser = await this.userRepository.findOneBy({ username: user });
     //Confirm the product exists.
     if (product) {
       //confirm if user has item in cart
@@ -41,8 +38,6 @@ export class CartService {
         });
         newItem.user = authUser;
         newItem.item = product;
-        this.cartRepository.save(newItem);
-
         return await this.cartRepository.save(newItem);
       } else {
         //Update the item quantity
