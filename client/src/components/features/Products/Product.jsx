@@ -1,9 +1,18 @@
 import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from '@material-ui/icons';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { addToCartRequest } from '../../../redux/cartReducer';
+import { useDispatch } from 'react-redux';
+
 const Product = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(
+      addToCartRequest({ id: item.id, quantity: 1, username: sessionStorage.getItem('username') }),
+    );
+  };
+
   const [hoverEffect, setHoverEffect] = useState('opacity-0');
-  const navigate = useNavigate();
   const iconsStyle =
     'h-[40px] w-[40px] rounded-full text-white flex items-center justify-center m-3 bg-[#ec633e] cursor-pointer hover:bg-white hover:text-[#ec633e] hover:scale-[1.1] ease-in duration-100 cursor-pointer';
 
@@ -30,7 +39,15 @@ const Product = ({ item }) => {
       >
         {/*icons*/}
         <div className={iconsStyle}>
-          <ShoppingCartOutlined />
+          <ShoppingCartOutlined
+            onClick={(e) =>
+              handleAddToCart({
+                id: item.id,
+                quantity: 1,
+                username: sessionStorage.getItem('username'),
+              })
+            }
+          />
         </div>
         <div className={iconsStyle}>
           <FavoriteBorderOutlined />
